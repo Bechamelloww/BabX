@@ -9,25 +9,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset("assets/images/aroufe0.png",
-          ),
-          const Text("Arouf Gangsta",
+          Text("RecipX",
             style: TextStyle(
                 fontSize: 40,
-                fontFamily: 'Poppins'
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold
             ),
           ),
-          const Text("Old...",
-            style: TextStyle(
-              fontSize: 24,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const Padding(padding: EdgeInsets.only(top: 10)),
+          Padding(padding: EdgeInsets.only(top: 10)),
         ],
       ),
     );
