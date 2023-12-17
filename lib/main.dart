@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:recipx/pages/EventPage.dart';
+import 'package:recipx/pages/hub.dart';
 import 'package:recipx/pages/HomePage.dart';
-import 'package:recipx/pages/addEventPage.dart';
+import 'package:recipx/pages/profile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,6 +45,7 @@ class _MyAppState extends State<MyApp> {
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           onTap: (index) => setCurrentIndex(index),
+          enableFeedback: true,
           selectedItemColor: Colors.green,
           unselectedItemColor: Colors.grey,
           iconSize: 20,
@@ -55,12 +56,12 @@ class _MyAppState extends State<MyApp> {
                 label: 'Accueil'
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.calendar_month),
-                label: 'Planning'
+                icon: Icon(Icons.all_inclusive),
+                label: 'Hub'
             ),
             BottomNavigationBarItem(
-                icon: Icon(Icons.add),
-                label: 'Ajouter'
+                icon: Icon(Icons.account_circle_sharp),
+                label: 'Profil'
             ),
           ],
         ),
