@@ -1,26 +1,34 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'hub.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({
+
+  HomePage({
     super.key,
   });
 
+  final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("RecipX",
+          const SizedBox(height: 60),
+          const Text("RecipX",
             style: TextStyle(
                 fontSize: 40,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.bold
             ),
           ),
-          Padding(padding: EdgeInsets.only(top: 10)),
+          const Padding(padding: EdgeInsets.only(top: 10)),
+          Center(
+            child: Text("Connnecté en tant que ${user!.email!}"),
+          )
         ],
       ),
     );

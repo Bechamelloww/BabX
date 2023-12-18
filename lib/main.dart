@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:recipx/pages/hub.dart';
-import 'package:recipx/pages/HomePage.dart';
-import 'package:recipx/pages/profile.dart';
+import 'package:recipx/pages/Home.dart';
+import 'package:recipx/pages/auth_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -16,68 +21,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  int _currentIndex = 0;
-
-  setCurrentIndex(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: [
-            const Text("Accueil",  style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),),
-            const Text("Hub",  style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),),
-            const Text("Profil",  style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),)
-          ][_currentIndex],
-          centerTitle: true,
-        ),
-
-        body: [
-          const HomePage(),
-          const HubPage(),
-          const ProfilePage()
-        ][_currentIndex],
-          bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-              splashColor: Colors.orange.shade50,
-              brightness: Brightness.dark,
-            ),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              currentIndex: _currentIndex,
-              onTap: (index) => setCurrentIndex(index),
-              selectedItemColor: Colors.orangeAccent,
-              unselectedItemColor: Colors.grey,
-              iconSize: 20,
-              elevation: 1,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: 'Accueil',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.all_inclusive),
-                  label: 'Hub',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle_sharp),
-                  label: 'Profil',
-                ),
-              ],
-            ),
-          )
-      ),
+    return const MaterialApp(
+      home: AuthPage()
     );
   }
 }

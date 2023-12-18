@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "234130676275",
+    "project_id": "recipx-e23cc",
+    "storage_bucket": "recipx-e23cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234130676275:android:11e5dab499b1b2bc00e146",
+        "android_client_info": {
+          "package_name": "fr.bechamello.recipx"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBGmCrvHghu0VJ0s0mP6iNfcp069WkBw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
