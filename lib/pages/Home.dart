@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
         ][_currentIndex],
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            splashColor: Colors.red.shade700,
+            splashColor: Colors.red[900]?.withOpacity(0.2),
             brightness: Brightness.dark,
           ),
           child: BottomNavigationBar(
