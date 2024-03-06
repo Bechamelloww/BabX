@@ -62,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
       body: SafeArea(
         child: Center(
           child: Column(
@@ -76,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 30),
 
               // welcome back, you've been missed!
-              Text(
+              const Text(
                 'Bienvenue !',
                 style: TextStyle(
-                  color: Colors.grey[700],
+                  color: Colors.white70,
                   fontSize: 30,
                   fontWeight: FontWeight.bold
                 ),
@@ -166,13 +167,6 @@ class _LoginPageState extends State<LoginPage> {
                   // google button
                   SquareTile(
                     imagePath: 'assets/images/google.png', onTap: () => AuthService().signInWithGoogle()),
-
-                  const SizedBox(width: 25),
-
-                  // apple button
-                  SquareTile(
-                      imagePath: 'assets/images/apple.png',
-                      onTap: () {} )
                 ],
               ),
 

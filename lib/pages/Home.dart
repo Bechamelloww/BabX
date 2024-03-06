@@ -30,27 +30,32 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.grey[900],
           centerTitle: true,
           title: [
             const Text("Home",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20
+              fontSize: 20,
+              color: Colors.white70
             ),),
             const Text("Hub",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20
+                  fontSize: 20,
+                  color: Colors.white70
               ),),
             const Text("Chat",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20
+                  fontSize: 20,
+                  color: Colors.white70
               ),),
             const Text("Profil",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 20
+                  fontSize: 20,
+                  color: Colors.white70
               ),)
           ][_currentIndex],
           actions: [
@@ -61,15 +66,16 @@ class _HomeState extends State<Home> {
         body: [
           HomePage(),
           const HubPage(),
-          const ChatPage(),
+          //const ChatPage(),
           const ProfilePage(),
         ][_currentIndex],
         bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            splashColor: Colors.red.shade50,
+            splashColor: Colors.red.shade700,
             brightness: Brightness.dark,
           ),
           child: BottomNavigationBar(
+            backgroundColor: Colors.grey[900],
             type: BottomNavigationBarType.fixed,
             currentIndex: _currentIndex,
             onTap: (index) => setCurrentIndex(index),
@@ -77,7 +83,7 @@ class _HomeState extends State<Home> {
             unselectedItemColor: Colors.grey,
             showSelectedLabels: true,
             showUnselectedLabels: false,
-            iconSize: 21,
+            iconSize: 22,
             elevation: 1,
             items: const [
               BottomNavigationBarItem(
@@ -85,13 +91,13 @@ class _HomeState extends State<Home> {
                 label: 'Accueil',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.all_inclusive),
-                label: 'Hub',
+                icon: Icon(Icons.sports_soccer_sharp),
+                label: 'Jouer',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble_rounded),
-                label: 'Chat',
-              ),
+              //BottomNavigationBarItem(
+               // icon: Icon(Icons.chat_bubble_rounded),
+              //  label: 'Chat',
+              //),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle_sharp),
                 label: 'Profil',
