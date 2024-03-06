@@ -44,38 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCd3P0qibvKM8oQJ303qoHEy-Ejljlkrkg',
-    appId: '1:234130676275:web:d7026e4a6bfaaf1900e146',
-    messagingSenderId: '234130676275',
-    projectId: 'recipx-e23cc',
-    authDomain: 'recipx-e23cc.firebaseapp.com',
-    storageBucket: 'recipx-e23cc.appspot.com',
-    measurementId: 'G-VLDZVZX0QE',
+    apiKey: 'AIzaSyA59NIuXDJeUucK0wyB1FAJ1oPF04pEkGE',
+    appId: '1:708209944017:web:84a5ef255c131ec62cacf0',
+    messagingSenderId: '708209944017',
+    projectId: 'babx-ededd',
+    authDomain: 'babx-ededd.firebaseapp.com',
+    storageBucket: 'babx-ededd.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCBGmCrvHghu0VJ0s0mP6iNfcp069WkBw8',
-    appId: '1:234130676275:android:11e5dab499b1b2bc00e146',
-    messagingSenderId: '234130676275',
-    projectId: 'recipx-e23cc',
-    storageBucket: 'recipx-e23cc.appspot.com',
+    apiKey: 'AIzaSyAhyz3ec_32xdk0XxN0ZHFRaUsn5A8m_0c',
+    appId: '1:708209944017:android:43b403a320adaa462cacf0',
+    messagingSenderId: '708209944017',
+    projectId: 'babx-ededd',
+    storageBucket: 'babx-ededd.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDd1P08fl9XI0RmOLy2hcbwNafHLBi9HlY',
-    appId: '1:234130676275:ios:76b8367ef3107dc900e146',
-    messagingSenderId: '234130676275',
-    projectId: 'recipx-e23cc',
-    storageBucket: 'recipx-e23cc.appspot.com',
+    apiKey: 'AIzaSyB-xlNAAcl34X0jFY-v5f91Rp1-qLpmSvg',
+    appId: '1:708209944017:ios:a375bcd34ca636252cacf0',
+    messagingSenderId: '708209944017',
+    projectId: 'babx-ededd',
+    storageBucket: 'babx-ededd.appspot.com',
     iosBundleId: 'fr.bechamello.recipx',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDd1P08fl9XI0RmOLy2hcbwNafHLBi9HlY',
-    appId: '1:234130676275:ios:5b111fa4dd4fced600e146',
-    messagingSenderId: '234130676275',
-    projectId: 'recipx-e23cc',
-    storageBucket: 'recipx-e23cc.appspot.com',
+    apiKey: 'AIzaSyB-xlNAAcl34X0jFY-v5f91Rp1-qLpmSvg',
+    appId: '1:708209944017:ios:f2afb089a2a38d7f2cacf0',
+    messagingSenderId: '708209944017',
+    projectId: 'babx-ededd',
+    storageBucket: 'babx-ededd.appspot.com',
     iosBundleId: 'fr.bechamello.recipx.RunnerTests',
   );
 }

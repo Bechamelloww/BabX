@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "234130676275",
-    "project_id": "recipx-e23cc",
-    "storage_bucket": "recipx-e23cc.appspot.com"
+    "project_number": "708209944017",
+    "project_id": "babx-ededd",
+    "storage_bucket": "babx-ededd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:234130676275:android:11e5dab499b1b2bc00e146",
+        "mobilesdk_app_id": "1:708209944017:android:43b403a320adaa462cacf0",
         "android_client_info": {
           "package_name": "fr.bechamello.recipx"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCBGmCrvHghu0VJ0s0mP6iNfcp069WkBw8"
+          "current_key": "AIzaSyAhyz3ec_32xdk0XxN0ZHFRaUsn5A8m_0c"
         }
       ],
       "services": {
