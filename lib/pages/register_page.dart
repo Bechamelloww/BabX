@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipx/components/my_button.dart';
-import 'package:recipx/components/my_textfield.dart';
-import 'package:recipx/components/square_tile.dart';
+import 'package:babx/components/my_button.dart';
+import 'package:babx/components/my_textfield.dart';
+import 'package:babx/components/square_tile.dart';
 
 import '../services/auth_service.dart';
 

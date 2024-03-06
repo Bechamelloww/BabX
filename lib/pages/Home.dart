@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:recipx/pages/profile.dart';
+import 'package:babx/pages/profile.dart';
 import 'chat_page.dart';
 import 'main_page.dart';
 import 'hub.dart';

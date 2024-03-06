@@ -42,7 +42,7 @@ class HubAppPage extends StatelessWidget {
   Widget _buildAppContent() {
     switch (appName) {
       case 'Recettes':
-        return const RecipeCreatorPage();
+        return RecipeCreatorPage();
       case 'Liste de courses':
         return const CoursesPage();
       default:

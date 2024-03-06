@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:recipx/pages/hubApp.dart';
+import 'package:babx/pages/hubApp.dart';
 
 class HubPage extends StatelessWidget {
   const HubPage({Key? key}) : super(key: key);
