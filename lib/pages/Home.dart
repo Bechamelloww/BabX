@@ -45,12 +45,6 @@ class _HomeState extends State<Home> {
                   fontSize: 20,
                   color: Colors.white70
               ),),
-            const Text("Chat",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white70
-              ),),
             const Text("Profil",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -66,7 +60,6 @@ class _HomeState extends State<Home> {
         body: [
           HomePage(),
           const HubPage(),
-          //const ChatPage(),
           const ProfilePage(),
         ][_currentIndex],
         bottomNavigationBar: Theme(
@@ -94,10 +87,6 @@ class _HomeState extends State<Home> {
                 icon: Icon(Icons.sports_soccer_sharp),
                 label: 'Jouer',
               ),
-              //BottomNavigationBarItem(
-               // icon: Icon(Icons.chat_bubble_rounded),
-              //  label: 'Chat',
-              //),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle_sharp),
                 label: 'Profil',
