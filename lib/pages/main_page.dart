@@ -59,26 +59,26 @@ class HomePage extends StatelessWidget {
                     DataColumn(label: Text('Nom', style: TextStyle(color: Colors.white, fontSize: 19),)),
                     DataColumn(label: Text('Victoires', style: TextStyle(color: Colors.white, fontSize: 19),)),
                   ],
-                  rows: const [
+                  rows: [
                     DataRow(cells: [
-                      DataCell(Text('Gabriel MARIE', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                      DataCell(Text('81', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      const DataCell(Text('Gabriel MARIE', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('81', style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 15),)),
                     ]),
                     DataRow(cells: [
-                      DataCell(Text('John DOE', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                      DataCell(Text('10', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      const DataCell(Text('John DOE', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('10', style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 15),)),
                     ]),
                     DataRow(cells: [
-                      DataCell(Text('Marco MARCONI', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                      DataCell(Text('5', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      const DataCell(Text('Marco MARCONI', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('5', style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 15),)),
                     ]),
                     DataRow(cells: [
-                      DataCell(Text('Lionel MESSI', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                      DataCell(Text('3', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      const DataCell(Text('Lionel MESSI', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('3', style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 15),)),
                     ]),
                     DataRow(cells: [
-                      DataCell(Text('Cristiano RONALDO', style: TextStyle(color: Colors.white, fontSize: 15),)),
-                      DataCell(Text('0', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      const DataCell(Text('Cristiano RONALDO', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('0', style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 15),)),
                     ]),
                   ],
                 ),
