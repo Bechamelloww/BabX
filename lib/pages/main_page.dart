@@ -31,9 +31,58 @@ class HomePage extends StatelessWidget {
             const Padding(padding: EdgeInsets.only(top: 10)),
             Center(
               child: Text("Connecté en tant que ${user!.email!}",
-              style: TextStyle(
-                  color: Colors.white60
-              ),),
+                style: const TextStyle(
+                    color: Colors.white60
+                ),),
+
+            ),
+            const SizedBox(height: 60,),
+            const Center(
+              child: Text("Le Top 5",
+                style: TextStyle(
+                    color: Colors.white60,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold
+                ),),
+
+            ),
+            const SizedBox(height: 25,),
+            SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height - 300,
+                ),
+                child: DataTable(
+                  dividerThickness: 1,
+                  columns: const [
+                    DataColumn(label: Text('Nom', style: TextStyle(color: Colors.white, fontSize: 19),)),
+                    DataColumn(label: Text('Victoires', style: TextStyle(color: Colors.white, fontSize: 19),)),
+                  ],
+                  rows: const [
+                    DataRow(cells: [
+                      DataCell(Text('Gabriel MARIE', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('81', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('John DOE', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('10', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('Marco MARCONI', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('5', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('Lionel MESSI', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('3', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                    ]),
+                    DataRow(cells: [
+                      DataCell(Text('Cristiano RONALDO', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                      DataCell(Text('0', style: TextStyle(color: Colors.white, fontSize: 15),)),
+                    ]),
+                  ],
+                ),
+              ),
             ),
           ],
         ),

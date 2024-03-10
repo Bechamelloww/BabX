@@ -45,6 +45,8 @@ class HubAppPage extends StatelessWidget {
         return RecipeCreatorPage();
       case 'Liste de courses':
         return const CoursesPage();
+      case 'Jean-Macé 1':
+        //return const GamePage(appName);
       default:
         return Container();
     }

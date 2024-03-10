@@ -24,8 +24,11 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: AuthPage()
+    return MaterialApp(
+      home: const AuthPage(),
+      theme: ThemeData(
+        dividerColor: Colors.blue,
+      ),
     );
   }
 }
