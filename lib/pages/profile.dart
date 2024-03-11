@@ -136,7 +136,7 @@ Widget buildColoredBox(String title, String content, Color color, double width, 
     width: width,
     height: height,
     decoration: BoxDecoration(
-      color: color.withOpacity(0.5),
+      color: Colors.grey[900],
       borderRadius: BorderRadius.circular(20),
     ),
     child: Column(
@@ -145,15 +145,15 @@ Widget buildColoredBox(String title, String content, Color color, double width, 
         Text(
           title,
           style: const TextStyle(
-            color: Colors.white,
+            color: Colors.white70,
             fontSize: 15
           ),
         ),
         const SizedBox(height: 5),
         Text(
           content,
-          style: const TextStyle(
-            color: Colors.white70,
+          style: TextStyle(
+            color: color,
             fontSize: 30,
             fontWeight: FontWeight.bold
           ),
