@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:babx/components/my_button.dart';
 import 'package:babx/components/my_textfield.dart';
@@ -19,7 +20,10 @@ class _RegisterPageState extends State<RegisterPage> {
   // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final confirmPasswordController =TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
 
 
   // sign user in method
@@ -34,6 +38,13 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       if (passwordController.text == confirmPasswordController.text) {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+        // add user details
+        addUserDetails(
+            usernameController.text,
+            emailController.text,
+            firstNameController.text,
+            lastNameController.text
+        );
       } else {
         showErrorMessage("Mots de passe diffférents");
       }
@@ -47,6 +58,15 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     }
 
+  }
+
+  Future addUserDetails(String username, String email, String firstname, String lastname) async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'email' : email,
+      'firstname' : firstname,
+      'lastname' : lastname,
+      'username' : username,
+    });
   }
 
   void showErrorMessage(String message) {
@@ -69,18 +89,13 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      body: SafeArea(
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // logo
-              const Icon(
-                Icons.lock,
-                size: 80,
-              ),
 
-              const SizedBox(height: 30),
+              const SizedBox(height: 60),
 
               // welcome back, you've been missed!
               const Text(
@@ -96,10 +111,35 @@ class _RegisterPageState extends State<RegisterPage> {
 
               // email textfield
               MyTextField(
+                controller: usernameController,
+                hintText: 'Nom d\'utilisateur',
+                obscureText: false,
+              ),
+
+              const SizedBox(height: 10),
+
+              // email textfield
+              MyTextField(
                 controller: emailController,
                 hintText: 'E-mail',
                 obscureText: false,
               ),
+
+              const SizedBox(height: 10),
+
+                  MyTextField(
+                    controller: firstNameController,
+                    hintText: 'Prénom',
+                    obscureText: false,
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  MyTextField(
+                    controller: lastNameController,
+                    hintText: 'Nom',
+                    obscureText: false,
+                  ),
 
               const SizedBox(height: 10),
 
@@ -191,8 +231,10 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
+
                 ],
-              )
+              ),
+              const SizedBox(height: 30),
             ],
           ),
         ),

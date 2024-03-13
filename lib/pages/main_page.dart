@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,6 @@ class HomePage extends StatelessWidget {
                 style: const TextStyle(
                     color: Colors.white60
                 ),),
-
             ),
             const SizedBox(height: 60,),
             const Center(
@@ -44,7 +44,6 @@ class HomePage extends StatelessWidget {
                   fontSize: 25,
                   fontWeight: FontWeight.bold
                 ),),
-
             ),
             const SizedBox(height: 25,),
             SingleChildScrollView(
