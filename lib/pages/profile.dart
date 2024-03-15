@@ -18,98 +18,19 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: SingleChildScrollView(
-        child: StreamBuilder<DocumentSnapshot>(
-          stream: FirebaseFirestore.instance
-              .collection('users')
-              .doc(user?.email)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final userData = snapshot.data!.data() as Map<String, dynamic>;
-              return Stack(
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[900],
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20.0),
-                        bottomRight: Radius.circular(20.0),
-                      ),
-                    ),
-                  ),
-                  const Positioned(
-                    top: 60,
-                    left: 30,
-                    child: CircleAvatar(
-                      radius: 64,
-                      backgroundColor: Colors.black,
-                      backgroundImage: NetworkImage(
-                          'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
-                      foregroundColor: Colors.black,
-                      foregroundImage: NetworkImage(
-                          'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
-                    ),
-                  ),
-                  Positioned(
-                    top: 80,
-                    left: 190,
-                    child: Column(
-                      children: [
-                        Text(
-                          "${userData['firstname']}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 110,
-                    left: 190,
-                    child: Column(
-                      children: [
-                        Text(
-                          '${userData['lastname']}'.toUpperCase(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 10,
-                    child: Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProfilePage()),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(0, 30),
-                            backgroundColor: Colors.black,
-                          ),
-                          child: const Text(
-                            'Éditer',
-                            style: TextStyle(color: Colors.redAccent),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Center(
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(user?.email)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final userData = snapshot.data!.data() as Map<String, dynamic>;
+            return Stack(
+              children: [
+
+                SingleChildScrollView(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -117,73 +38,213 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 210,
                         ),
                         Wrap(
-                          spacing: 10.0, // Espace horizontal entre les boîtes
-                          runSpacing: 10.0, // Espace vertical entre les boîtes
+                          spacing: 10.0,
+                          runSpacing: 10.0,
                           children: [
-                            Column(children: [
-                              buildColoredBox("Victoires", "51",
-                                  Colors.blueAccent, 150, 170),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildColoredBox("Parties jouées", "60",
-                                  Colors.redAccent, 150, 100),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              buildColoredBox(
-                                  "Test", "TEST", Colors.orange, 150, 100),
-                            ]),
+                            Column(
+                              children: [
+                                buildColoredBox(
+                                    "Victoires",
+                                    "${userData['wins']}",
+                                    Colors.blueAccent,
+                                    150,
+                                    170),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                buildColoredBox(
+                                    "Parties jouées",
+                                    "${userData['total_games']}",
+                                    Colors.redAccent,
+                                    150,
+                                    100),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                buildColoredBox(
+                                    "Défaites", "${userData['loss']}", Colors.orange, 150, 100),
+                              ],
+                            ),
                             Column(
                               children: [
                                 buildColoredBox(
                                     "Partenaire Favori",
-                                    "Johnny\nDOE",
+                                    "${userData['fav_mate']}",
                                     Colors.greenAccent,
                                     170,
                                     130),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                buildColoredBox("Adversaires affrontés", "10",
-                                    Colors.red, 170, 100),
+                                buildColoredBox(
+                                    "Adversaires affrontés",
+                                    "${userData['total_opponents']}",
+                                    Colors.red,
+                                    170,
+                                    100),
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                buildColoredBox("Babyfoot Favori",
-                                    "Perrache n°2", Colors.lime, 170, 140),
+                                buildColoredBox(
+                                    "Babyfoot Favori",
+                                    "${userData['fav_babyfoot']}",
+                                    Colors.green,
+                                    170,
+                                    140),
                               ],
                             ),
                             buildColoredBox(
-                                "Test", "TEST", Colors.purple, 330, 100)
+                                "Winrate", "${userData['wins'] / userData['total_games']*100} %", Colors.purple, 330, 100
+                            ),
+                            Column(
+                              children: [
+                                buildColoredBox(
+                                    "Style de jeu",
+                                    "${userData['gamestyle']}",
+                                    Colors.deepOrangeAccent,
+                                    150,
+                                    170),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                buildColoredBox(
+                                    "Buts marqués",
+                                    "${userData['nb_goals']}",
+                                    Colors.lightBlueAccent,
+                                    170,
+                                    80),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                buildColoredBox(
+                                    "Buts encaissés",
+                                    "${userData['nb_conceded']}",
+                                    Colors.red,
+                                    170,
+                                    80),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                         const SizedBox(
-                          height: 50,
+                          height: 30,
                         ),
                       ],
                     ),
                   ),
-                ],
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text("${snapshot.error}"));
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                  ),
+                ),
+                const Positioned(
+                  top: 60,
+                  left: 30,
+                  child: CircleAvatar(
+                    radius: 64,
+                    backgroundColor: Colors.black,
+                    backgroundImage: NetworkImage(
+                        'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
+                    foregroundColor: Colors.black,
+                    foregroundImage: NetworkImage(
+                        'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
+                  ),
+                ),
+                Positioned(
+                  top: 80,
+                  left: 190,
+                  child: Column(
+                    children: [
+                      Text(
+                        "${userData['firstname']}",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 110,
+                  left: 190,
+                  child: Column(
+                    children: [
+                      Text(
+                        '${userData['lastname']}'.toUpperCase(),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w900,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  right: 10,
+                  child: Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const EditProfilePage()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(0, 30),
+                          backgroundColor: Colors.black,
+                        ),
+                        child: const Text(
+                          'Éditer',
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text("${snapshot.error}"));
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }
 }
 
-Widget buildColoredBox(
-    String title, String content, Color color, double width, double height) {
+Widget buildColoredBox(String title, String content, Color color, double width,
+    double height) {
   return Container(
     width: width,
     height: height,
     decoration: BoxDecoration(
-      color: Colors.grey[900],
+      gradient: LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [
+        Colors.grey.shade800,
+        Colors.grey.shade900
+      ],),
       borderRadius: BorderRadius.circular(20),
     ),
     child: Column(

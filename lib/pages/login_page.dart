@@ -4,6 +4,7 @@ import 'package:babx/components/my_button.dart';
 import 'package:babx/components/my_textfield.dart';
 import 'package:babx/components/square_tile.dart';
 import 'package:babx/services/auth_service.dart';
+import 'package:quickalert/quickalert.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -45,18 +46,14 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void showErrorMessage(String message) {
-      print("No user found");
-      showDialog(context: context, builder: (context) {
-        return AlertDialog(
-          title: Text(
-            message,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          ),),
-          backgroundColor: Colors.black,
-        );
-      });
+    print("No user found");
+    QuickAlert.show(
+      context: context,
+      customAsset: 'assets/images/error.gif',
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: message,
+    );
   }
 
   @override

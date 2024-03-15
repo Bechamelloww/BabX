@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:babx/components/my_button.dart';
 import 'package:babx/components/my_textfield.dart';
 import 'package:babx/components/square_tile.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../services/auth_service.dart';
 
@@ -25,25 +26,40 @@ class _RegisterPageState extends State<RegisterPage> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
-
   // sign user in method
   void signUserUp() async {
-
-    showDialog(context: context, builder: (context) {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
 
     try {
       if (passwordController.text == confirmPasswordController.text) {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+        UserCredential userCredential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: emailController.text, password: passwordController.text);
         // add user details
-        FirebaseFirestore.instance.collection('users').doc(userCredential.user!.email).set({
-          'email' : emailController.text,
-          'username' : usernameController.text,
-          'firstname' : firstNameController.text,
-          'lastname' : lastNameController.text,
+        FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.email)
+            .set({
+          'email': emailController.text,
+          'username': usernameController.text,
+          'firstname': firstNameController.text,
+          'lastname': lastNameController.text.toUpperCase(),
+          'fav_babyfoot': "Aucun",
+          'fav_mate': "Aucun",
+          'total_opponents': 0,
+          'total_games': 0,
+          'wins': 0,
+          'loss': 0,
+          'winrate': 0.0,
+          'gamestyle': 'Débutant',
+          'nb_goals': 0,
+          'nb_conceded': 0,
         });
       } else {
         showErrorMessage("Mots de passe diffférents");
@@ -57,24 +73,18 @@ class _RegisterPageState extends State<RegisterPage> {
         showErrorMessage(e.code);
       }
     }
-
   }
 
   void showErrorMessage(String message) {
     print("No user found");
-    showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Text(
-          message,
-          style: const TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          ),),
-        backgroundColor: Colors.black,
-      );
-    });
+    QuickAlert.show(
+      context: context,
+      customAsset: 'assets/images/error.gif',
+      type: QuickAlertType.error,
+      title: 'Oops...',
+      text: message,
+    );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +95,6 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
               const SizedBox(height: 60),
 
               // welcome back, you've been missed!
@@ -94,8 +103,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 style: TextStyle(
                     color: Colors.white70,
                     fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
+                    fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 25),
@@ -118,19 +126,19 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 10),
 
-                  MyTextField(
-                    controller: firstNameController,
-                    hintText: 'Prénom',
-                    obscureText: false,
-                  ),
+              MyTextField(
+                controller: firstNameController,
+                hintText: 'Prénom',
+                obscureText: false,
+              ),
 
-                  const SizedBox(height: 10),
+              const SizedBox(height: 10),
 
-                  MyTextField(
-                    controller: lastNameController,
-                    hintText: 'Nom',
-                    obscureText: false,
-                  ),
+              MyTextField(
+                controller: lastNameController,
+                hintText: 'Nom',
+                obscureText: false,
+              ),
 
               const SizedBox(height: 10),
 
@@ -197,7 +205,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 children: [
                   // google button
                   SquareTile(
-                      imagePath: 'assets/images/google.png', onTap: () => AuthService().signInWithGoogle()),
+                      imagePath: 'assets/images/google.png',
+                      onTap: () => AuthService().signInWithGoogle()),
                 ],
               ),
 
@@ -222,7 +231,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                     ),
                   ),
-
                 ],
               ),
               const SizedBox(height: 30),

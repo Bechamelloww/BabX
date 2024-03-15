@@ -33,13 +33,13 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.grey[900],
           centerTitle: true,
           title: [
-            const Text("Home",
+            const Text("Accueil",
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
               color: Colors.white70
             ),),
-            const Text("Hub",
+            const Text("Salons",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
