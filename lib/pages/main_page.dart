@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[900], // Changer ici pour la couleur de fond souhaitée
+      color: Colors.grey[900],
       child: Center(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
@@ -31,10 +31,28 @@ class HomePage extends StatelessWidget {
             ),
             const Padding(padding: EdgeInsets.only(top: 10)),
             Center(
-              child: Text("Connecté en tant que ${user!.email!}",
-                style: const TextStyle(
-                    color: Colors.white60
-                ),),
+              child: FutureBuilder<QuerySnapshot>(
+                future: FirebaseFirestore.instance
+                    .collection('users').where('email', isEqualTo: user!.email)
+                    .get(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final users = snapshot.data!.docs;
+                    if (users.isNotEmpty) {
+                      final userData = users.first.data();
+                      return Text("Connecté en tant que $userData", style: const TextStyle(color: Colors.white60),);
+                    } else {
+                      return const Text('Aucun utilisateur trouvé avec cet email');
+                    }
+                  } else {
+                    return const Text('Aucune donnée disponible');
+                  }
+                },
+              ),
             ),
             const SizedBox(height: 60,),
             const Center(
@@ -81,9 +99,8 @@ class HomePage extends StatelessWidget {
                     ]),
                   ],
                 ),
-              ),
             ),
-          ],
+            )],
         ),
       ),
     );
