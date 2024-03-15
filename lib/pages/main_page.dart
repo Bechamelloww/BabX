@@ -62,96 +62,62 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 25,
                   ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxHeight: MediaQuery.of(context).size.height - 300,
-                      ),
-                      child: DataTable(
-                        dividerThickness: 1,
-                        columns: const [
-                          DataColumn(
-                              label: Text(
-                            'Nom',
-                            style: TextStyle(color: Colors.white, fontSize: 19),
-                          )),
-                          DataColumn(
-                              label: Text(
-                            'Victoires',
-                            style: TextStyle(color: Colors.white, fontSize: 19),
-                          )),
-                        ],
-                        rows: [
-                          DataRow(cells: [
-                            const DataCell(Text(
-                              'Gabriel MARIE',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
-                            DataCell(Text(
-                              '81',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontSize: 15),
-                            )),
-                          ]),
-                          DataRow(cells: [
-                            const DataCell(Text(
-                              'John DOE',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
-                            DataCell(Text(
-                              '10',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontSize: 15),
-                            )),
-                          ]),
-                          DataRow(cells: [
-                            const DataCell(Text(
-                              'Marco MARCONI',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
-                            DataCell(Text(
-                              '5',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontSize: 15),
-                            )),
-                          ]),
-                          DataRow(cells: [
-                            const DataCell(Text(
-                              'Lionel MESSI',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
-                            DataCell(Text(
-                              '3',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontSize: 15),
-                            )),
-                          ]),
-                          DataRow(cells: [
-                            const DataCell(Text(
-                              'Cristiano RONALDO',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            )),
-                            DataCell(Text(
-                              '0',
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.7),
-                                  fontSize: 15),
-                            )),
-                          ]),
-                        ],
-                      ),
+                  Expanded(
+                    child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('users')
+                          .orderBy('wins', descending: true)
+                          .limit(5) // Limit to only 5 documents
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          final usersData = snapshot.data!.docs;
+                          return SingleChildScrollView(
+                            scrollDirection: Axis.vertical,
+                            child: ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxHeight: MediaQuery.of(context).size.height - 300,
+                              ),
+                              child: DataTable(
+                                dividerThickness: 1,
+                                columns: const [
+                                  DataColumn(
+                                      label: Text(
+                                        'Nom',
+                                        style: TextStyle(color: Colors.white, fontSize: 19),
+                                      )),
+                                  DataColumn(
+                                      label: Text(
+                                        'Victoires',
+                                        style: TextStyle(color: Colors.white, fontSize: 19),
+                                      )),
+                                ],
+                                rows: usersData.map((userData) {
+                                  final data = userData.data() as Map<String, dynamic>;
+                                  return DataRow(cells: [
+                                    DataCell(Text(
+                                      data['username'] ?? '',
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    )),
+                                    DataCell(Text(
+                                      data['wins'].toString(),
+                                      style: TextStyle(
+                                          color: Colors.white.withOpacity(0.7),
+                                          fontSize: 15),
+                                    )),
+                                  ]);
+                                }).toList(),
+                              ),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Center(child:Text("${snapshot.error}"));
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
             );
