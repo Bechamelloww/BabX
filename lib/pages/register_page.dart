@@ -37,14 +37,14 @@ class _RegisterPageState extends State<RegisterPage> {
 
     try {
       if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
         // add user details
-        addUserDetails(
-            usernameController.text,
-            emailController.text,
-            firstNameController.text,
-            lastNameController.text
-        );
+        FirebaseFirestore.instance.collection('users').doc(userCredential.user!.email).set({
+          'email' : emailController.text,
+          'username' : usernameController.text,
+          'firstname' : firstNameController.text,
+          'lastname' : lastNameController.text,
+        });
       } else {
         showErrorMessage("Mots de passe diffférents");
       }
@@ -58,15 +58,6 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     }
 
-  }
-
-  Future addUserDetails(String username, String email, String firstname, String lastname) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'email' : email,
-      'firstname' : firstname,
-      'lastname' : lastname,
-      'username' : username,
-    });
   }
 
   void showErrorMessage(String message) {
