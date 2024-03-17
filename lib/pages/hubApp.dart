@@ -1,7 +1,5 @@
+import 'package:babx/pages/BabyfootLobbyPage.dart';
 import 'package:flutter/material.dart';
-
-import 'hubApps/courses.dart';
-import 'hubApps/recipes.dart';
 
 class HubAppPage extends StatelessWidget {
   final String appName;
@@ -23,8 +21,8 @@ class HubAppPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
                 child: Image.asset(
                   logoPath,
-                  width: 40.0, // Ajustez la largeur de l'image selon vos besoins
-                  height: 40.0, // Ajustez la hauteur de l'image selon vos besoins
+                  width: 40.0,
+                  height: 40.0,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -41,12 +39,14 @@ class HubAppPage extends StatelessWidget {
 
   Widget _buildAppContent() {
     switch (appName) {
-      case 'Recettes':
-        return RecipeCreatorPage();
-      case 'Liste de courses':
-        return const CoursesPage();
       case 'Jean-Macé 1':
-        //return const GamePage(appName);
+        return BabyfootLobbyPage(appName);
+      case 'Jean-Macé 2':
+        return BabyfootLobbyPage(appName);
+      case 'Perrache 1':
+        return BabyfootLobbyPage(appName);
+      case 'Perrache 2':
+        return BabyfootLobbyPage(appName);
       default:
         return Container();
     }

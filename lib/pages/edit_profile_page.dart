@@ -70,14 +70,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     controller: usernameController,
                     decoration: const InputDecoration(
                       labelText: 'Nom d\'utilisateur',
-                      labelStyle:
-                          TextStyle(color: Colors.redAccent, fontSize: 15),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
                     ),
                     style: TextStyle(color: Colors.grey.shade500),
                     validator: (value) {
@@ -92,14 +84,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     controller: firstNameController,
                     decoration: const InputDecoration(
                       labelText: 'Prénom',
-                      labelStyle:
-                          TextStyle(color: Colors.redAccent, fontSize: 15),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
                     ),
                     style: TextStyle(color: Colors.grey.shade500),
                     validator: (value) {
@@ -114,14 +98,6 @@ class _EditProfileFormState extends State<EditProfileForm> {
                     controller: lastNameController,
                     decoration: const InputDecoration(
                       labelText: 'Nom',
-                      labelStyle:
-                          TextStyle(color: Colors.redAccent, fontSize: 15),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.redAccent),
-                      ),
                     ),
                     style: TextStyle(color: Colors.grey.shade500),
                     validator: (value) {

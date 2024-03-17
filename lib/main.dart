@@ -28,6 +28,25 @@ class _MyAppState extends State<MyApp> {
       home: const AuthPage(),
       theme: ThemeData(
         dividerColor: Colors.blue,
+        primaryColor: Colors.redAccent,
+        secondaryHeaderColor: Colors.redAccent,
+        hintColor: Colors.redAccent,
+        textSelectionTheme: TextSelectionThemeData(
+          cursorColor: Colors.redAccent,
+          selectionColor: Colors.redAccent.withOpacity(0.4),
+          selectionHandleColor: Colors.redAccent,
+
+        ),
+        inputDecorationTheme: const InputDecorationTheme(
+          labelStyle:
+          TextStyle(color: Colors.redAccent, fontSize: 15),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.redAccent),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Colors.redAccent),
+          ),
+        ),
       ),
     );
   }

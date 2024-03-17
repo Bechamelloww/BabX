@@ -16,9 +16,6 @@ class HubPage extends StatelessWidget {
           crossAxisSpacing: 16.0,
           mainAxisSpacing: 16.0,
           children: [
-            //_buildAppTile(context, 'Recettes', 'assets/images/kitchenmin.jpg'),
-            //_buildAppTile(context, 'Liste de courses', 'assets/images/listapp.jpeg'),
-            //_buildAppTile(context, 'Arcanin', 'assets/images/arcanin.jpg'),
             _buildAppTile(context, 'Jean-Macé 1', 'assets/images/jmacebaby.jpg'),
             _buildAppTile(context, 'Jean-Macé 2', 'assets/images/jmacebaby.jpg'),
             _buildAppTile(context, 'Perrache 1', 'assets/images/perrache1.jpg'),

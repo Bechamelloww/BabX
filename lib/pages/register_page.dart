@@ -18,7 +18,6 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // text editing controllers
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -26,7 +25,6 @@ class _RegisterPageState extends State<RegisterPage> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
-  // sign user in method
   void signUserUp() async {
     showDialog(
         context: context,
@@ -41,7 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: emailController.text, password: passwordController.text);
-        // add user details
         FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user!.email)
@@ -97,7 +94,6 @@ class _RegisterPageState extends State<RegisterPage> {
             children: [
               const SizedBox(height: 60),
 
-              // welcome back, you've been missed!
               const Text(
                 'Inscris-toi !',
                 style: TextStyle(
@@ -108,7 +104,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 25),
 
-              // email textfield
               MyTextField(
                 controller: usernameController,
                 hintText: 'Nom d\'utilisateur',
@@ -117,7 +112,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 10),
 
-              // email textfield
               MyTextField(
                 controller: emailController,
                 hintText: 'E-mail',
@@ -161,7 +155,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 25),
 
-              // sign in button
               MyButton(
                 onTap: signUserUp,
                 text: "S'inscrire",
@@ -169,7 +162,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 30),
 
-              // or continue with
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 25.0),
                 child: Row(
@@ -199,11 +191,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 30),
 
-              // google + apple sign in buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // google button
                   SquareTile(
                       imagePath: 'assets/images/google.png',
                       onTap: () => AuthService().signInWithGoogle()),
@@ -212,7 +202,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
               const SizedBox(height: 30),
 
-              // not a member? register now
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
