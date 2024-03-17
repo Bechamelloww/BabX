@@ -1,21 +1,45 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-class GetUserName extends StatelessWidget {
-  final String documentId;
+class UserDataService {
+  static Future<String?> getUserNameFromEmail() async {
+    String? userMail = FirebaseAuth.instance.currentUser?.email;
+    if (userMail != null) {
+      DocumentSnapshot userDataSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userMail)
+          .get();
+      if (userDataSnapshot.exists) {
+        Map<String, dynamic> userData =
+        userDataSnapshot.data() as Map<String, dynamic>;
+        return userData['username'];
+      }
+    }
+    return null;
+  }
+}
 
-  GetUserName({required this.documentId});
+class UsernameText extends StatelessWidget {
+  const UsernameText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-
-    return FutureBuilder<DocumentSnapshot>(future: users.doc(documentId).get(),builder: ((context, snapshot) {
-      if (snapshot.connectionState == ConnectionState.done) {
-        Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-        return Text('Nom d\'utilisateur : ${data['username']}');
-      }
-      return const Text('Chargement...');
-    }));
+    return FutureBuilder<String?>(
+      future: UserDataService.getUserNameFromEmail(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          if (snapshot.data != null) {
+            return Text("Connecté en tant que ${snapshot.data!} !", style: const TextStyle(color: Colors.white60),);
+          } else {
+            return const Text('Pas de nom d\'utilisateur trouvé');
+          }
+        }
+      },
+    );
   }
 }
