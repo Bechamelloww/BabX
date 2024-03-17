@@ -5,7 +5,6 @@ import 'chat_page.dart';
 import 'main_page.dart';
 import 'hub.dart';
 
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -33,30 +32,32 @@ class _HomeState extends State<Home> {
           backgroundColor: Colors.grey[900],
           centerTitle: true,
           title: [
-            const Text("Accueil",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-              color: Colors.white70
-            ),),
-            const Text("Salons",
+            const Text(
+              "Accueil",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.white70
-              ),),
-            const Text("Profil",
+                  color: Colors.white70),
+            ),
+            const Text(
+              "Salons",
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.white70
-              ),)
+                  color: Colors.white70),
+            ),
+            const Text(
+              "Profil",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white70),
+            )
           ][_currentIndex],
           actions: [
             IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))
           ],
         ),
-
         body: [
           HomePage(),
           const HubPage(),
@@ -93,7 +94,6 @@ class _HomeState extends State<Home> {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }

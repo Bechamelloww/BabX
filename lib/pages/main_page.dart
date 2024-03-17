@@ -1,5 +1,5 @@
 import 'package:babx/read_data/get_top5Table.dart';
-import 'package:babx/read_data/get_username.dart';
+import 'package:babx/read_data/get_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,8 +33,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.white),
               ),
               Padding(padding: EdgeInsets.only(top: 10)),
-              Center(
-                  child: UsernameText()),
+              Center(child: UsernameText()),
               SizedBox(
                 height: 60,
               ),

@@ -12,8 +12,40 @@ class UserDataService {
           .get();
       if (userDataSnapshot.exists) {
         Map<String, dynamic> userData =
-        userDataSnapshot.data() as Map<String, dynamic>;
+            userDataSnapshot.data() as Map<String, dynamic>;
         return userData['username'];
+      }
+    }
+    return null;
+  }
+
+  static Future<String?> getLastNameFromEmail() async {
+    String? userMail = FirebaseAuth.instance.currentUser?.email;
+    if (userMail != null) {
+      DocumentSnapshot userDataSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userMail)
+          .get();
+      if (userDataSnapshot.exists) {
+        Map<String, dynamic> userData =
+        userDataSnapshot.data() as Map<String, dynamic>;
+        return userData['lastname'];
+      }
+    }
+    return null;
+  }
+
+  static Future<String?> getFirstNameFromEmail() async {
+    String? userMail = FirebaseAuth.instance.currentUser?.email;
+    if (userMail != null) {
+      DocumentSnapshot userDataSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userMail)
+          .get();
+      if (userDataSnapshot.exists) {
+        Map<String, dynamic> userData =
+        userDataSnapshot.data() as Map<String, dynamic>;
+        return userData['firstname'];
       }
     }
     return null;
@@ -34,7 +66,10 @@ class UsernameText extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         } else {
           if (snapshot.data != null) {
-            return Text("Connecté en tant que ${snapshot.data!} !", style: const TextStyle(color: Colors.white60),);
+            return Text(
+              "Connecté en tant que ${snapshot.data!} !",
+              style: const TextStyle(color: Colors.white60),
+            );
           } else {
             return const Text('Pas de nom d\'utilisateur trouvé');
           }

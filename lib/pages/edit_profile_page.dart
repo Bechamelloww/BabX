@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../read_data/get_data.dart';
 
 class EditProfilePage extends StatelessWidget {
   const EditProfilePage({Key? key}) : super(key: key);
@@ -9,10 +13,10 @@ class EditProfilePage extends StatelessWidget {
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.grey[900],
-        title: const Text('Éditer le profil', style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold
-        ),),
+        title: const Text(
+          'Éditer le profil',
+          style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+        ),
       ),
       body: EditProfileForm(),
     );
@@ -27,53 +31,127 @@ class EditProfileForm extends StatefulWidget {
 }
 
 class _EditProfileFormState extends State<EditProfileForm> {
-  // Ajoutez les contrôleurs pour les champs de formulaire
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
-  // Ajoutez une clé pour le formulaire
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    UserDataService.getUserNameFromEmail().then((value) {
+      usernameController.text = value ?? '';
+    });
+    UserDataService.getFirstNameFromEmail().then((value) {
+      firstNameController.text = value ?? '';
+    });
+    UserDataService.getLastNameFromEmail().then((value) {
+      lastNameController.text = value ?? '';
+    });
+  }
+
+  final user = FirebaseAuth.instance.currentUser;
+  final usersCollection = FirebaseFirestore.instance.collection("users");
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Form(
-        key: _formKey,
+      child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            TextFormField(
-              controller: _firstNameController,
-              decoration: const InputDecoration(labelText: 'Prénom'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Veuillez entrer un prénom';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _lastNameController,
-              decoration: const InputDecoration(labelText: 'Nom'),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Veuillez entrer un nom';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                // Validez le formulaire
-                if (_formKey.currentState!.validate()) {
-                  // Ajoutez ici le code pour enregistrer les modifications dans la base de données ou ailleurs
-                  // Vous pouvez accéder aux valeurs des champs avec _firstNameController.text et _lastNameController.text
-                  // N'oubliez pas de naviguer vers la page précédente après l'édition
-                  Navigator.pop(context);
-                }
-              },
-              child: const Text('Enregistrer'),
-            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: usernameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nom d\'utilisateur',
+                      labelStyle:
+                          TextStyle(color: Colors.redAccent, fontSize: 15),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.grey.shade500),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuillez entrer un nom d\'utilisateur';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: firstNameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Prénom',
+                      labelStyle:
+                          TextStyle(color: Colors.redAccent, fontSize: 15),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.grey.shade500),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuillez entrer un prénom';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  TextFormField(
+                    controller: lastNameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nom',
+                      labelStyle:
+                          TextStyle(color: Colors.redAccent, fontSize: 15),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.redAccent),
+                      ),
+                    ),
+                    style: TextStyle(color: Colors.grey.shade500),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Veuillez entrer un nom';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 40),
+                  ElevatedButton(
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await usersCollection.doc(user?.email).update({
+                          'username': usernameController.text.trim(),
+                          'firstname': firstNameController.text.trim(),
+                          'lastname':
+                              lastNameController.text.trim().toUpperCase(),
+                        });
+                        Navigator.pop(context);
+                      }
+                    },
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.black),
+                    child: const Text('Enregistrer',
+                        style: TextStyle(color: Colors.redAccent)),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),
