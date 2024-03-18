@@ -52,6 +52,24 @@ class UserDataService {
   }
 }
 
+Future<void> updateImageUrl(String imageUrl) async {
+  try {
+    String? userMail = FirebaseAuth.instance.currentUser?.email;
+    if (userMail != null) {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userMail)
+          .update({'img_url': imageUrl});
+      print('Image URL updated successfully.');
+    } else {
+      print('No user signed in.');
+    }
+  } catch (error) {
+    print('Error updating image URL: $error');
+  }
+}
+
+
 class UsernameText extends StatelessWidget {
   const UsernameText({super.key});
 

@@ -152,16 +152,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const Positioned(
+                  top: 53,
+                  left: 22,
+                  child: CircleAvatar(
+                    radius: 72,
+                    backgroundColor: Colors.black,
+                  ),
+                ),
+                Positioned(
                   top: 60,
                   left: 30,
                   child: CircleAvatar(
                     radius: 64,
                     backgroundColor: Colors.black,
                     backgroundImage: NetworkImage(
-                        'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
+                        userData['img_url']),
                     foregroundColor: Colors.black,
                     foregroundImage: NetworkImage(
-                        'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png'),
+                        userData['img_url']),
                   ),
                 ),
                 Positioned(

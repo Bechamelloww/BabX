@@ -44,6 +44,7 @@ class _RegisterPageState extends State<RegisterPage> {
             .doc(userCredential.user!.email)
             .set({
           'uid': userCredential.user?.uid,
+          'img_url': 'https://static-00.iconduck.com/assets.00/profile-circle-icon-2048x2048-cqe5466q.png',
           'email': emailController.text,
           'username': usernameController.text,
           'firstname': firstNameController.text,

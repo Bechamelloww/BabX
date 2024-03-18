@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import '../read_data/get_data.dart';
 
 class EditProfilePage extends StatelessWidget {
@@ -18,7 +21,7 @@ class EditProfilePage extends StatelessWidget {
           style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
         ),
       ),
-      body: EditProfileForm(),
+      body: const EditProfileForm(),
     );
   }
 }
@@ -35,6 +38,8 @@ class _EditProfileFormState extends State<EditProfileForm> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  String imageUrl = '';
 
   @override
   void initState() {
@@ -66,6 +71,33 @@ class _EditProfileFormState extends State<EditProfileForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  IconButton(
+                      onPressed: () async {
+                        ImagePicker imagePicker = ImagePicker();
+                        XFile? file = await imagePicker.pickImage(
+                            source: ImageSource.gallery);
+
+                        String uniqueFileName =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+
+                        Reference referenceRoot =
+                            FirebaseStorage.instance.ref();
+                        Reference referenceDirImages =
+                            referenceRoot.child('images');
+                        Reference referenceImageToUpload =
+                            referenceDirImages.child(uniqueFileName);
+
+                        try {
+                          await referenceImageToUpload
+                              .putFile(File(file!.path));
+                          imageUrl =
+                              await referenceImageToUpload.getDownloadURL();
+                          print(imageUrl);
+                          updateImageUrl(imageUrl);
+                        } catch (error) {}
+                      },
+                      icon: const Icon(Icons.camera_alt)),
+                  const SizedBox(height: 20),
                   TextFormField(
                     controller: usernameController,
                     decoration: const InputDecoration(
