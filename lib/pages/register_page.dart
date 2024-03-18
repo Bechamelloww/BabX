@@ -55,7 +55,6 @@ class _RegisterPageState extends State<RegisterPage> {
           'total_games': 0,
           'wins': 0,
           'loss': 0,
-          'winrate': 0.0,
           'gamestyle': 'Débutant',
           'nb_goals': 0,
           'nb_conceded': 0,

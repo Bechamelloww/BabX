@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 60),
+              SizedBox(height: 10),
               Text(
                 "BabX",
                 style: TextStyle(

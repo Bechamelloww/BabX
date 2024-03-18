@@ -23,31 +23,41 @@ class GetTop5Table extends StatelessWidget {
               ),
               child: DataTable(
                 dividerThickness: 1,
+                dataRowMaxHeight: 70,
                 columns: const [
                   DataColumn(
-                      label: Text(
-                        'Nom',
-                        style: TextStyle(color: Colors.white, fontSize: 19),
-                      )),
+                    numeric: false,
+                    label: Text(""),
+                  ),
                   DataColumn(
                       label: Text(
-                        'Victoires',
-                        style: TextStyle(color: Colors.white, fontSize: 19),
-                      )),
+                    'Utilisateur',
+                    style: TextStyle(color: Colors.white, fontSize: 19),
+                  )),
+                  DataColumn(
+                      label: Text(
+                    'Victoires',
+                    style: TextStyle(color: Colors.white, fontSize: 19),
+                  )),
                 ],
                 rows: usersData.map((userData) {
                   final data = userData.data() as Map<String, dynamic>;
                   return DataRow(cells: [
+                    DataCell(
+                      CircleAvatar(
+                        radius: 23,
+                        backgroundColor: Colors.black,
+                        backgroundImage: NetworkImage(userData['img_url']),
+                      ),
+                    ),
                     DataCell(Text(
                       data['username'] ?? '',
-                      style: const TextStyle(
-                          color: Colors.white, fontSize: 15),
+                      style: const TextStyle(color: Colors.white, fontSize: 15),
                     )),
                     DataCell(Text(
                       data['wins'].toString(),
                       style: TextStyle(
-                          color: Colors.white.withOpacity(0.7),
-                          fontSize: 15),
+                          color: Colors.white.withOpacity(0.7), fontSize: 15),
                     )),
                   ]);
                 }).toList(),
@@ -55,12 +65,10 @@ class GetTop5Table extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasError) {
-          return Center(child:Text("${snapshot.error}"));
+          return Center(child: Text("${snapshot.error}"));
         }
         return const Center(child: CircularProgressIndicator());
       },
     );
   }
-
 }
-
