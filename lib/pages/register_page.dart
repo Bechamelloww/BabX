@@ -43,6 +43,7 @@ class _RegisterPageState extends State<RegisterPage> {
             .collection('users')
             .doc(userCredential.user!.email)
             .set({
+          'uid': userCredential.user?.uid,
           'email': emailController.text,
           'username': usernameController.text,
           'firstname': firstNameController.text,
