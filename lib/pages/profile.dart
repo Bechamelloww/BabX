@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 const Positioned(
-                  top: 53,
+                  top: 52,
                   left: 22,
                   child: CircleAvatar(
                     radius: 72,
