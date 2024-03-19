@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:babx/pages/Home.dart';
 import 'package:babx/pages/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -24,6 +25,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       home: const AuthPage(),
       theme: ThemeData(

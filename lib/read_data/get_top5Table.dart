@@ -26,12 +26,13 @@ class GetTop5Table extends StatelessWidget {
                 maxHeight: MediaQuery.of(context).size.height - 300,
               ),
               child: DataTable(
-                dividerThickness: 1,
+                dividerThickness: 0,
                 dataRowMaxHeight: 70,
+                columnSpacing: 30,
                 columns: const [
                   DataColumn(
                     numeric: false,
-                    label: Text(""),
+                    label: SizedBox.shrink(),
                   ),
                   DataColumn(
                       label: Text(
@@ -64,8 +65,6 @@ class GetTop5Table extends StatelessWidget {
                                     userEmail: userData['email']),
                               ),
                             );
-                          } else {
-
                           }
                         },
                       ),

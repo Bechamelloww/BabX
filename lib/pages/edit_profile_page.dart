@@ -94,6 +94,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
                               await referenceImageToUpload.getDownloadURL();
                           print(imageUrl);
                           updateImageUrl(imageUrl);
+                          Navigator.pop(context);
                         } catch (error) {}
                       },
                       icon: const Icon(Icons.camera_alt)),
