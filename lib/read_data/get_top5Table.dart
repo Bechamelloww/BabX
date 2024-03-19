@@ -1,4 +1,8 @@
+import 'package:babx/pages/Home.dart';
+import 'package:babx/pages/profile.dart';
+import 'package:babx/pages/stranger_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class GetTop5Table extends StatelessWidget {
@@ -44,10 +48,26 @@ class GetTop5Table extends StatelessWidget {
                   final data = userData.data() as Map<String, dynamic>;
                   return DataRow(cells: [
                     DataCell(
-                      CircleAvatar(
-                        radius: 23,
-                        backgroundColor: Colors.black,
-                        backgroundImage: NetworkImage(userData['img_url']),
+                      IconButton(
+                        icon: CircleAvatar(
+                          radius: 23,
+                          backgroundColor: Colors.black,
+                          backgroundImage: NetworkImage(userData['img_url']),
+                        ),
+                        onPressed: () {
+                          if (userData['uid'] !=
+                              FirebaseAuth.instance.currentUser?.uid) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ShowStrangerProfile(
+                                    userEmail: userData['email']),
+                              ),
+                            );
+                          } else {
+
+                          }
+                        },
                       ),
                     ),
                     DataCell(Text(

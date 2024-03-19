@@ -1,27 +1,34 @@
+import 'package:babx/pages/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'edit_profile_page.dart';
+class ShowStrangerProfile extends StatelessWidget {
+  final String userEmail;
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
-  final user = FirebaseAuth.instance.currentUser;
+  const ShowStrangerProfile({Key? key, required this.userEmail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Profil",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.white60,
+            fontSize: 20,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.grey[900],
+      ),
       backgroundColor: Colors.black,
       body: StreamBuilder<DocumentSnapshot>(
         stream: FirebaseFirestore.instance
             .collection('users')
-            .doc(user?.email)
+            .doc(userEmail)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -33,7 +40,6 @@ class _ProfilePageState extends State<ProfilePage> {
             }
             return Stack(
               children: [
-
                 SingleChildScrollView(
                   child: Center(
                     child: Column(
@@ -49,66 +55,81 @@ class _ProfilePageState extends State<ProfilePage> {
                             Column(
                               children: [
                                 buildColoredBox(
-                                    "Victoires",
-                                    "${userData['wins']}",
-                                    Colors.blueAccent,
-                                    150,
-                                    170),
+                                  "Victoires",
+                                  "${userData['wins']}",
+                                  Colors.blueAccent,
+                                  150,
+                                  170,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildColoredBox(
-                                    "Parties jouées",
-                                    "${userData['total_games']}",
-                                    Colors.redAccent,
-                                    150,
-                                    100),
+                                  "Parties jouées",
+                                  "${userData['total_games']}",
+                                  Colors.redAccent,
+                                  150,
+                                  100,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildColoredBox(
-                                    "Défaites", "${userData['loss']}", Colors.orange, 150, 100),
+                                  "Défaites",
+                                  "${userData['loss']}",
+                                  Colors.orange,
+                                  150,
+                                  100,
+                                ),
                               ],
                             ),
                             Column(
                               children: [
                                 buildColoredBox(
-                                    "Partenaire Favori",
-                                    "${userData['fav_mate']}",
-                                    Colors.greenAccent,
-                                    170,
-                                    130),
+                                  "Partenaire Favori",
+                                  "${userData['fav_mate']}",
+                                  Colors.greenAccent,
+                                  170,
+                                  130,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildColoredBox(
-                                    "Adversaires affrontés",
-                                    "${userData['total_opponents']}",
-                                    Colors.red,
-                                    170,
-                                    100),
+                                  "Adversaires affrontés",
+                                  "${userData['total_opponents']}",
+                                  Colors.red,
+                                  170,
+                                  100,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildColoredBox(
-                                    "Babyfoot Favori",
-                                    "${userData['fav_babyfoot']}",
-                                    Colors.green,
-                                    170,
-                                    140),
+                                  "Babyfoot Favori",
+                                  "${userData['fav_babyfoot']}",
+                                  Colors.green,
+                                  170,
+                                  140,
+                                ),
                               ],
                             ),
                             buildColoredBox(
-                                "Winrate", "$winRate %", Colors.purple, 330, 100
+                              "Winrate",
+                              "$winRate %",
+                              Colors.purple,
+                              330,
+                              100,
                             ),
                             Column(
                               children: [
                                 buildColoredBox(
-                                    "Style de jeu",
-                                    "${userData['gamestyle']}",
-                                    Colors.deepOrangeAccent,
-                                    150,
-                                    170),
+                                  "Style de jeu",
+                                  "${userData['gamestyle']}",
+                                  Colors.deepOrangeAccent,
+                                  150,
+                                  170,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -117,20 +138,22 @@ class _ProfilePageState extends State<ProfilePage> {
                             Column(
                               children: [
                                 buildColoredBox(
-                                    "Buts marqués",
-                                    "${userData['nb_goals']}",
-                                    Colors.lightBlueAccent,
-                                    170,
-                                    80),
+                                  "Buts marqués",
+                                  "${userData['nb_goals']}",
+                                  Colors.lightBlueAccent,
+                                  170,
+                                  80,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
                                 buildColoredBox(
-                                    "Buts encaissés",
-                                    "${userData['nb_conceded']}",
-                                    Colors.red,
-                                    170,
-                                    80),
+                                  "Buts encaissés",
+                                  "${userData['nb_conceded']}",
+                                  Colors.red,
+                                  170,
+                                  80,
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -171,10 +194,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     radius: 64,
                     backgroundColor: Colors.black,
                     backgroundImage: NetworkImage(
-                        userData['img_url']),
+                      userData['img_url'],
+                    ),
                     foregroundColor: Colors.black,
                     foregroundImage: NetworkImage(
-                        userData['img_url']),
+                      userData['img_url'],
+                    ),
                   ),
                 ),
                 Positioned(
@@ -208,31 +233,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  right: 10,
-                  child: Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const EditProfilePage()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size(0, 30),
-                          backgroundColor: Colors.black,
-                        ),
-                        child: const Text(
-                          'Éditer',
-                          style: TextStyle(color: Colors.redAccent),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             );
           } else if (snapshot.hasError) {
@@ -243,38 +243,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
-
-Widget buildColoredBox(String title, String content, Color color, double width,
-    double height) {
-  return Container(
-    width: width,
-    height: height,
-    decoration: BoxDecoration(
-      gradient: LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [
-        Colors.grey.shade800,
-        Colors.grey.shade900
-      ],),
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          title,
-          style: const TextStyle(color: Colors.white70, fontSize: 15),
-        ),
-        const SizedBox(height: 5),
-        Text(
-          content,
-          style: TextStyle(
-              color: color, fontSize: 30, fontWeight: FontWeight.bold),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    ),
-  );
 }
