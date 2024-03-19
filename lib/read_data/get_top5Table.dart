@@ -1,5 +1,3 @@
-import 'package:babx/pages/Home.dart';
-import 'package:babx/pages/profile.dart';
 import 'package:babx/pages/stranger_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
