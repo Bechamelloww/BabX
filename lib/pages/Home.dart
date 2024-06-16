@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:babx/pages/profile.dart';
-import 'chat_page.dart';
 import 'main_page.dart';
 import 'hub.dart';
 
@@ -55,11 +54,11 @@ class _HomeState extends State<Home> {
             )
           ][_currentIndex],
           actions: [
-            IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))
+            IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
           ],
         ),
         body: [
-          HomePage(),
+          const HomePage(),
           const HubPage(),
           const ProfilePage(),
         ][_currentIndex],

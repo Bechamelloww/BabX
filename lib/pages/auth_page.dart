@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:babx/pages/main_page.dart';
-import 'package:babx/pages/login_page.dart';
 
 import 'Home.dart';
 import 'login_or_register.dart';

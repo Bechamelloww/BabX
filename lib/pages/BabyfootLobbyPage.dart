@@ -25,7 +25,7 @@ class BabyfootLobbyPage extends StatelessWidget {
             return _buildJoinTeamUI(matchData);
           }
         } else {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         }
       },
     );
@@ -39,20 +39,20 @@ class BabyfootLobbyPage extends StatelessWidget {
           onPressed: () async {
             await _joinTeam(matchData['babyfootName'], 'blue'); // Rejoindre les bleus
           },
-          child: Text('Rejoindre les bleus'),
+          child: const Text('Rejoindre les bleus'),
         ),
         ElevatedButton(
           onPressed: () async {
             await _joinTeam(matchData['babyfootName'], 'red'); // Rejoindre les rouges
           },
-          child: Text('Rejoindre les rouges'),
+          child: const Text('Rejoindre les rouges'),
         ),
       ],
     );
   }
 
   Widget _buildGameInProgressUI(Map<String, dynamic> matchData) {
-    return Column(
+    return const Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Afficher les noms des joueurs par équipe, les scores, etc.

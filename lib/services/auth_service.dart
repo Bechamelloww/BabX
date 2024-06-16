@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -22,12 +21,12 @@ class AuthService {
         String lastName = nameParts.length > 1 ? nameParts.last.toUpperCase() : '';
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(user?.email)
+            .doc(user.email)
             .set({
-          'uid': user?.uid,
-          'img_url': user?.photoURL,
-          'email': user?.email,
-          'username': user?.displayName,
+          'uid': user.uid,
+          'img_url': user.photoURL,
+          'email': user.email,
+          'username': user.displayName,
           'firstname': firstName,
           'lastname': lastName.toUpperCase(),
           'fav_babyfoot': "Aucun",

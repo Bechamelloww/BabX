@@ -11,7 +11,7 @@ class MyButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: const ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+        backgroundColor: WidgetStatePropertyAll<Color>(Colors.black),
       ),
       child: Text(text, style: const TextStyle(
         color: Colors.white,

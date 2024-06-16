@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class GetTop5Table extends StatelessWidget {
-  const GetTop5Table();
+  const GetTop5Table({super.key});
 
   @override
   Widget build(BuildContext context) {

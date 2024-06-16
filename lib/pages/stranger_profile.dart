@@ -1,6 +1,5 @@
 import 'package:babx/pages/profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ShowStrangerProfile extends StatelessWidget {
