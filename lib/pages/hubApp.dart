@@ -11,7 +11,8 @@ class HubAppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(appName, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(appName, style: const TextStyle(fontWeight: FontWeight.bold,
+        color: Colors.white70)),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
@@ -38,17 +39,7 @@ class HubAppPage extends StatelessWidget {
   }
 
   Widget _buildAppContent() {
-    switch (appName) {
-      case 'Jean-Macé 1':
-        return BabyfootLobbyPage(appName);
-      case 'Jean-Macé 2':
-        return BabyfootLobbyPage(appName);
-      case 'Perrache 1':
-        return BabyfootLobbyPage(appName);
-      case 'Perrache 2':
-        return BabyfootLobbyPage(appName);
-      default:
-        return Container();
-    }
+    return BabyfootLobbyPage(appName);
   }
+
 }
