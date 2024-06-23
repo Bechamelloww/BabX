@@ -31,16 +31,29 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
       await matchDoc.update({
         'winner': team == 'blue' ? 2 : 3,
       });
-      // Navigate back to the lobby
+      await _createNewMatch();
       Navigator.pop(context);
     }
+  }
+
+  Future<void> _createNewMatch() async {
+    await _firestore.collection('matches').add({
+      'blue_score': 0,
+      'red_score': 0,
+      'blue_player_1': null,
+      'blue_player_2': null,
+      'red_player_1': null,
+      'red_player_2': null,
+      'winner': null,
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Match en cours'),
+        title: Text('Match en cours', style: const TextStyle(fontWeight: FontWeight.bold,
+            color: Colors.white70)),
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: matchDoc.snapshots(),
@@ -54,22 +67,92 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
             return Center(child: Text('Aucune donnée disponible'));
           }
 
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          return Row(
             children: [
-              Text('Équipe Bleue: ${matchData['blue_score']}'),
-              Text('Équipe Rouge: ${matchData['red_score']}'),
-              ElevatedButton(
-                onPressed: () => _updateScore('blue', 1),
-                child: Text('Ajouter 1 point à l\'équipe Bleue'),
+              Expanded(
+                child: Container(
+                  color: Colors.blue,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${matchData['blue_score']}',
+                        style: TextStyle(
+                          fontSize: 100,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '${matchData['blue_player_1'] ?? 'Vide'}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        '${matchData['blue_player_2'] ?? 'Vide'}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              ElevatedButton(
-                onPressed: () => _updateScore('red', 1),
-                child: Text('Ajouter 1 point à l\'équipe Rouge'),
+              Expanded(
+                child: Container(
+                  color: Colors.red,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${matchData['red_score']}',
+                        style: TextStyle(
+                          fontSize: 100,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '${matchData['red_player_1'] ?? 'Vide'}',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        '${matchData['red_player_2'] ?? 'Vide'}',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           );
         },
+      ),
+
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () => _updateScore('blue', 1),
+            child: Icon(Icons.add),
+            backgroundColor: Colors.blue,
+          ),
+          SizedBox(height: 16),
+          FloatingActionButton(
+            onPressed: () => _updateScore('red', 1),
+            child: Icon(Icons.add),
+            backgroundColor: Colors.red,
+          ),
+        ],
       ),
     );
   }

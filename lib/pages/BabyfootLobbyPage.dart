@@ -1,3 +1,6 @@
+import 'package:babx/components/my_BigButtonColored.dart';
+import 'package:babx/components/my_button.dart';
+import 'package:babx/components/my_buttonColored.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +32,7 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
     final querySnapshot = await _firestore
         .collection('matches')
         .where('babyfoot', isEqualTo: widget.babyfootName)
-        .where('winner', isEqualTo:0)
+        .where('winner', isEqualTo: 0)
         .limit(1)
         .get();
 
@@ -56,8 +59,14 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
       final data = doc.data() as Map<String, dynamic>;
       final email = user!.email;
 
-      if ([data['blue_player_1'], data['blue_player_2'], data['red_player_1'], data['red_player_2']].contains(email)) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Vous êtes déjà dans une équipe')));
+      if ([
+        data['blue_player_1'],
+        data['blue_player_2'],
+        data['red_player_1'],
+        data['red_player_2']
+      ].contains(email)) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Vous êtes déjà dans une équipe')));
         return;
       }
 
@@ -66,7 +75,8 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
       } else if (data['${team}_player_2'] == null) {
         await matchDoc.update({'${team}_player_2': email});
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Équipe $team pleine')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Équipe $team pleine')));
       }
 
       setState(() {
@@ -120,7 +130,8 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
           context: context,
           builder: (context) => AlertDialog(
             title: Text('Erreur'),
-            content: Text('Il faut au moins un joueur dans chaque équipe pour commencer la partie.'),
+            content: Text(
+                'Il faut au moins un joueur dans chaque équipe pour commencer la partie.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -171,45 +182,57 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
               ];
               final email = user!.email;
               final bool isBluePlayer = allPlayers.contains(email) &&
-                  (data['blue_player_1'] == email || data['blue_player_2'] == email);
+                  (data['blue_player_1'] == email ||
+                      data['blue_player_2'] == email);
               final bool isRedPlayer = allPlayers.contains(email) &&
-                  (data['red_player_1'] == email || data['red_player_2'] == email);
+                  (data['red_player_1'] == email ||
+                      data['red_player_2'] == email);
               final bool isSpectator = !isBluePlayer && !isRedPlayer;
-              return Column(
-                children: [
-                  Text('Équipe Bleue:'),
-                  Text('Joueur 1: ${data['blue_player_1'] ?? 'Vide'}'),
-                  Text('Joueur 2: ${data['blue_player_2'] ?? 'Vide'}'),
-                  Text('Équipe Rouge:'),
-                  Text('Joueur 1: ${data['red_player_1'] ?? 'Vide'}'),
-                  Text('Joueur 2: ${data['red_player_2'] ?? 'Vide'}'),
-                  if (!isBluePlayer)
-                    ElevatedButton(
-                      onPressed: () => _joinTeam(matchDoc, 'blue'),
-                      child: Text('Rejoindre Équipe Bleue'),
+              return Center(
+                child: Column(
+                  children: [
+                    Text('Équipe Bleue:'),
+                    Text('Joueur 1: ${data['blue_player_1'] ?? 'Vide'}'),
+                    Text('Joueur 2: ${data['blue_player_2'] ?? 'Vide'}'),
+                    if (!isBluePlayer)
+                      MyButtonColored(
+                        onTap: () => _joinTeam(matchDoc, 'blue'),
+                        text: "Rejoindre l'équipe bleue",
+                        color: Colors.blue,
+                      ),
+                    const SizedBox(height: 50,),
+                    Text('Équipe Rouge:'),
+                    Text('Joueur 1: ${data['red_player_1'] ?? 'Vide'}'),
+                    Text('Joueur 2: ${data['red_player_2'] ?? 'Vide'}'),
+                    if (!isRedPlayer)
+                      MyButtonColored(
+                        onTap: () => _joinTeam(matchDoc, 'red'),
+                        text: "Rejoindre l'équipe rouge",
+                        color: Colors.red,
+                      ),
+                    if (!isSpectator)
+                      ElevatedButton(
+                        onPressed: () => _joinAsSpectator(matchDoc),
+                        child: Text('Rejoindre les Spectateurs'),
+                      ),
+                    Text('En attente:'),
+                    Column(
+                      children: waitingPlayers
+                          .where((player) => !allPlayers.contains(player))
+                          .map((player) => Text(player!))
+                          .toList(),
                     ),
-                  if (!isRedPlayer)
-                    ElevatedButton(
-                      onPressed: () => _joinTeam(matchDoc, 'red'),
-                      child: Text('Rejoindre Équipe Rouge'),
+                    const SizedBox(height: 350,),
+                    FractionallySizedBox(
+                      widthFactor: 0.85,
+                      child: MyBigButtonColored(
+                        onTap: () => _startGame(matchDoc),
+                        text: 'Commencer la Partie',
+                        color: Colors.green,
+                      ),
                     ),
-                  ElevatedButton(
-                    onPressed: () => _startGame(matchDoc),
-                    child: Text('Commencer la Partie'),
-                  ),
-                  if (!isSpectator)
-                    ElevatedButton(
-                      onPressed: () => _joinAsSpectator(matchDoc),
-                      child: Text('Rejoindre les Spectateurs'),
-                    ),
-                  Text('En attente:'),
-                  Column(
-                    children: waitingPlayers
-                        .where((player) => !allPlayers.contains(player))
-                        .map((player) => Text(player!))
-                        .toList(),
-                  ),
-                ],
+                  ],
+                ),
               );
             },
           );
