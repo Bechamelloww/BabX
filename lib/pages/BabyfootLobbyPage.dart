@@ -1,5 +1,4 @@
 import 'package:babx/components/my_BigButtonColored.dart';
-import 'package:babx/components/my_button.dart';
 import 'package:babx/components/my_buttonColored.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -66,7 +65,7 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
         data['red_player_2']
       ].contains(email)) {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Vous êtes déjà dans une équipe')));
+            const SnackBar(content: Text('Vous êtes déjà dans une équipe')));
         return;
       }
 
@@ -129,13 +128,13 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: Text('Erreur'),
-            content: Text(
+            title: const Text('Erreur'),
+            content: const Text(
                 'Il faut au moins un joueur dans chaque équipe pour commencer la partie.'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('OK'),
+                child: const Text('OK'),
               ),
             ],
           ),
@@ -164,14 +163,14 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
         future: matchDocFuture,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           final matchDoc = snapshot.data!;
           return StreamBuilder<DocumentSnapshot>(
             stream: matchDoc.snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               }
               final data = snapshot.data!.data() as Map<String, dynamic>;
               final List<String?> allPlayers = [
@@ -191,7 +190,7 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
               return Center(
                 child: Column(
                   children: [
-                    Text('Équipe Bleue:'),
+                    const Text('Équipe Bleue:'),
                     Text('Joueur 1: ${data['blue_player_1'] ?? 'Vide'}'),
                     Text('Joueur 2: ${data['blue_player_2'] ?? 'Vide'}'),
                     if (!isBluePlayer)
@@ -201,7 +200,7 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
                         color: Colors.blue,
                       ),
                     const SizedBox(height: 50,),
-                    Text('Équipe Rouge:'),
+                    const Text('Équipe Rouge:'),
                     Text('Joueur 1: ${data['red_player_1'] ?? 'Vide'}'),
                     Text('Joueur 2: ${data['red_player_2'] ?? 'Vide'}'),
                     if (!isRedPlayer)
@@ -213,13 +212,13 @@ class _BabyfootLobbyPageState extends State<BabyfootLobbyPage> {
                     if (!isSpectator)
                       ElevatedButton(
                         onPressed: () => _joinAsSpectator(matchDoc),
-                        child: Text('Rejoindre les Spectateurs'),
+                        child: const Text('Rejoindre les Spectateurs'),
                       ),
-                    Text('En attente:'),
+                    const Text('En attente:'),
                     Column(
                       children: waitingPlayers
                           .where((player) => !allPlayers.contains(player))
-                          .map((player) => Text(player!))
+                          .map((player) => Text(player))
                           .toList(),
                     ),
                     const SizedBox(height: 350,),

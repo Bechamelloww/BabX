@@ -52,19 +52,19 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Match en cours', style: const TextStyle(fontWeight: FontWeight.bold,
+        title: const Text('Match en cours', style: TextStyle(fontWeight: FontWeight.bold,
             color: Colors.white70)),
       ),
       body: StreamBuilder<DocumentSnapshot>(
         stream: matchDoc.snapshots(),
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
           final matchData = snapshot.data!.data() as Map<String, dynamic>?;
 
           if (matchData == null) {
-            return Center(child: Text('Aucune donnée disponible'));
+            return const Center(child: Text('Aucune donnée disponible'));
           }
 
           return Row(
@@ -77,7 +77,7 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
                     children: [
                       Text(
                         '${matchData['blue_score']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 100,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -85,14 +85,14 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
                       ),
                       Text(
                         '${matchData['blue_player_1'] ?? 'Vide'}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                         ),
                       ),
                       Text(
                         '${matchData['blue_player_2'] ?? 'Vide'}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                         ),
@@ -109,7 +109,7 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
                     children: [
                       Text(
                         '${matchData['red_score']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 100,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
                       ),
                       Text(
                         '${matchData['red_player_1'] ?? 'Vide'}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                         ),
@@ -143,14 +143,14 @@ class _BabyfootMatchPageState extends State<BabyfootMatchPage> {
         children: [
           FloatingActionButton(
             onPressed: () => _updateScore('blue', 1),
-            child: Icon(Icons.add),
             backgroundColor: Colors.blue,
+            child: const Icon(Icons.add),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
             onPressed: () => _updateScore('red', 1),
-            child: Icon(Icons.add),
             backgroundColor: Colors.red,
+            child: const Icon(Icons.add),
           ),
         ],
       ),

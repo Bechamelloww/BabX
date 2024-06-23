@@ -12,9 +12,9 @@ class MyBigButtonColored extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(Colors.black),
-        minimumSize: MaterialStateProperty.all(const Size(200, 60)),
-        shape: MaterialStateProperty.all(
+        backgroundColor: WidgetStateProperty.all(Colors.black),
+        minimumSize: WidgetStateProperty.all(const Size(200, 60)),
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
