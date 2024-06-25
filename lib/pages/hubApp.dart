@@ -13,6 +13,7 @@ class HubAppPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(appName, style: const TextStyle(fontWeight: FontWeight.bold,
         color: Colors.white70)),
+        backgroundColor: Colors.grey[900],
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15.0),
