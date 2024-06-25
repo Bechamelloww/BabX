@@ -1,6 +1,6 @@
 # recipx
 
-Une application Android & iOS pour avoir toutes ses recettes personelles sous la main, et à terme l'application pourra être un mix de plusieurs fonctionnalités très utiles dans la vie quotidienne.
+Une application Android & iOS pour les étudiants d'YNOV Lyon, afin de pouvoir suivre ses stats de babyfoot ainsi que les matchs en direct.
 
 ## Getting Started
 

@@ -37,6 +37,7 @@ class _EditProfileFormState extends State<EditProfileForm> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   String imageUrl = '';
