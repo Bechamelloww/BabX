@@ -1,4 +1,4 @@
-# recipx
+# BabX
 
 Une application Android & iOS pour les étudiants d'YNOV Lyon, afin de pouvoir suivre ses stats de babyfoot ainsi que les matchs en direct.
 
